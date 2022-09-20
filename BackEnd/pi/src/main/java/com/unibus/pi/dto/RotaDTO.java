@@ -1,16 +1,21 @@
 package com.unibus.pi.dto;
 
 import com.unibus.pi.entities.Rota;
+import org.hibernate.validator.constraints.Length;
 
-public class RotaDTO {
-    
-    private int id;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+
+public class RotaDTO implements Serializable {
+    private static final long serialVersionUID=1L;
+    private Integer id;
+    @NotEmpty(message = "Preenchimento do nome é obrigatório!")
+    @Length(min = 5,max = 80,message = "O tamanho deve ser entre 5 e 80 caracteres")
     private String nome;
-    
     public RotaDTO(){
     }
 
-    public RotaDTO(int id, String nome) {
+    public RotaDTO(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -20,11 +25,11 @@ public class RotaDTO {
         nome = rota.getNome();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,4 +40,5 @@ public class RotaDTO {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 }

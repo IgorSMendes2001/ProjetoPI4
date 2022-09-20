@@ -1,39 +1,48 @@
 package com.unibus.pi.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "tb_rota")
-public class Rota {
-    
+public class Rota implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String nome;
-    private int intinerarioId;
+    @JsonBackReference
+    @OneToMany(mappedBy = "rota",cascade = CascadeType.ALL)
+    private List<Intinerario> intinerarios = new ArrayList<>();
 
     public Rota(){
     }
 
-    public Rota(int id, String nome, int intinerarioId) {
-        super();
+    public Rota(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
-        this.intinerarioId = intinerarioId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
+    public List<Intinerario> getIntinerarios() {
+        return intinerarios;
+    }
+
+    public void setIntinerarios(List<Intinerario> intinerarios) {
+        this.intinerarios = intinerarios;
+    }
     public String getNome() {
         return nome;
     }
@@ -42,11 +51,16 @@ public class Rota {
         this.nome = nome;
     }
 
-    public int getIntinerarioId() {
-        return intinerarioId;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rota)) return false;
+        Rota rota = (Rota) o;
+        return id.equals(rota.id);
     }
 
-    public void setIntinerarioId(int intinerarioId) {
-        this.intinerarioId = intinerarioId;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
