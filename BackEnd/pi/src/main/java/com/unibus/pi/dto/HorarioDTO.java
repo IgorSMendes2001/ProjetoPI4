@@ -7,11 +7,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 public class HorarioDTO implements Serializable{
     private static final long serialVersionUID = 1L;
     private Integer id;
     @JsonFormat(pattern = "HH:mm")
     private Set<String> horarios=new HashSet<>();
+    @NotNull(message = "Preenchimento do dia da Semana é obrigatório!")
     private Integer diaSemana;
     public HorarioDTO() {
     }

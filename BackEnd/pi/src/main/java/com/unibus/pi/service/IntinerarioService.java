@@ -68,4 +68,32 @@ public class IntinerarioService {
             throw new DataIntegrityException("Não é possível excluir uma Intinerario que possui vínculos com rotas!");
         }
     }
+    public Intinerario findByPontoInicial(String pontoInicial){
+        Intinerario obj = repository.findByPontoInicial(pontoInicial);
+        if(obj==null){
+            throw new ObjectNotFoundException("Objeto não encontrado! Ponto Inicial: "+ pontoInicial + ",Tipo: " + Intinerario.class.getName());
+        }
+        return obj;
+    }
+    public Intinerario findByPontoFinal(String pontoFinal){
+        Intinerario obj = repository.findByPontoFinal(pontoFinal);
+        if(obj==null){
+            throw new ObjectNotFoundException("Objeto não encontrado! Ponto Final: "+ pontoFinal + ",Tipo: " + Intinerario.class.getName());
+        }
+        return obj;
+    }
+    public Page<Intinerario> search(
+        String searchTerm,
+        int page,
+        int size) {
+    PageRequest pageRequest = PageRequest.of(
+            page,
+            size,
+            Sort.Direction.ASC,
+            "pontoInicial","pontoFinal");
+
+    return repository.search(
+            searchTerm.toLowerCase(),
+            pageRequest);
+}
 }

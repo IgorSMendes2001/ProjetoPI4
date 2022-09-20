@@ -64,4 +64,23 @@ import java.util.List;
             service.delete(id);
             return ResponseEntity.ok().body("Horario deletado com sucesso!");
         }
+        @GetMapping(value = "/search/{diaSemana}")
+        public ResponseEntity<Horario> findByDiaSemana(@PathVariable Integer diaSemana){
+            Horario horario=service.findByDiaSemana(diaSemana);
+            return ResponseEntity.ok().body(horario);
+        }
+        @GetMapping("/search")
+        public Page<Horario> search(
+                @RequestParam("searchTerm") String searchTerm,
+                @RequestParam(
+                        value = "page",
+                        required = false,
+                        defaultValue = "0") int page,
+                @RequestParam(
+                        value = "size",
+                        required = false,
+                        defaultValue = "10") int size) {
+            return service.search(searchTerm, page, size);
+    
+        }
 }

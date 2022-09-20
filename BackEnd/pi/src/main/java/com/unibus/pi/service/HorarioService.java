@@ -2,6 +2,7 @@ package com.unibus.pi.service;
 
 import com.unibus.pi.entities.Horario;
 import com.unibus.pi.exception.DataIntegrityException;
+import com.unibus.pi.exception.ObjectNotFoundException;
 import com.unibus.pi.repository.HorarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,4 +71,25 @@ public class HorarioService {
             throw new DataIntegrityException("Não é possível excluir uma Horario que possui vínculos com produtos!");
         }
     }
+    public Horario findByDiaSemana(Integer diaSemana){
+        Horario obj = repository.getHorarioByDiaSemana(diaSemana);
+        if(obj==null){
+            throw new ObjectNotFoundException("Objeto não encontrado! Dia da semana: "+ diaSemana + ",Tipo: " + Horario.class.getName());
+        }
+        return obj;
+    }
+    public Page<Horario> search(
+        String searchTerm,
+        int page,
+        int size) {
+    PageRequest pageRequest = PageRequest.of(
+            page,
+            size,
+            Sort.Direction.ASC,
+            "horarios");
+
+    return repository.search(
+            searchTerm.toLowerCase(),
+            pageRequest);
+}
 }

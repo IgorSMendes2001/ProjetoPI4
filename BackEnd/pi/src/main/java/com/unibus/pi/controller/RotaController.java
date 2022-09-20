@@ -41,6 +41,11 @@ public class RotaController {
         Rota rota=service.findById(id);
         return ResponseEntity.ok().body(rota);
     }
+    @GetMapping(value = "/procurarPorNome")
+    public ResponseEntity<Rota> findByNome(@RequestParam String nome){
+        Rota rota=service.findByNome(nome);
+        return ResponseEntity.ok().body(rota);
+    }
     @PostMapping()
     public ResponseEntity<RotaDTO> insert(@Valid @RequestBody RotaDTO objDto){
         Rota rota = modelMapper.map(objDto, Rota.class);
@@ -58,6 +63,20 @@ public class RotaController {
     public ResponseEntity<String> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.ok().body("Rota deletada com sucesso");
+    }
+    @GetMapping("/search")
+    public Page<Rota> search(
+            @RequestParam("searchTerm") String searchTerm,
+            @RequestParam(
+                    value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "10") int size) {
+        return service.search(searchTerm, page, size);
+
     }
     
 }

@@ -60,4 +60,28 @@ public class IntinerarioController {
         service.delete(id);
         return ResponseEntity.ok().body("Intinerario deletado com sucesso!");
     }
+    @GetMapping(value = "/pesquisarPorPontoInicial")
+    public ResponseEntity<Intinerario> findByPontoInicial(@RequestParam String pontoInicial){
+        Intinerario intinerario=service.findByPontoInicial(pontoInicial);
+        return ResponseEntity.ok().body(intinerario);
+    }
+    @GetMapping(value = "/pesquisarPorPontoFinal")
+    public ResponseEntity<Intinerario> findByPontoFinal(@RequestParam String pontoFinal){
+        Intinerario intinerario=service.findByPontoFinal(pontoFinal);
+        return ResponseEntity.ok().body(intinerario);
+    }
+    @GetMapping("/search")
+    public Page<Intinerario> search(
+            @RequestParam("searchTerm") String searchTerm,
+            @RequestParam(
+                    value = "page",
+                    required = false,
+                    defaultValue = "0") int page,
+            @RequestParam(
+                    value = "size",
+                    required = false,
+                    defaultValue = "10") int size) {
+        return service.search(searchTerm, page, size);
+
+    }
 }

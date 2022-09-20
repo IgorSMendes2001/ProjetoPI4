@@ -2,14 +2,27 @@ package com.unibus.pi.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 
 public class IntinerarioDTO implements Serializable {
     private static final long serialVersionUID = 1L;
     private  Integer id;
+    @NotEmpty(message = "Preenchimento do ponto inicial é obrigatório!")
+    @Length(min = 5,max = 80,message = "O tamanho deve ser entre 5 e 80 caracteres")
     private  String pontoInicial;
+    @NotEmpty(message = "Preenchimento do percurso é obrigatório!")
+    @Length(min = 5,max = 80,message = "O tamanho deve ser entre 5 e 80 caracteres")
     private  String percurso;
+    @NotEmpty(message = "Preenchimento do ponto final é obrigatório!")
+    @Length(min = 5,max = 80,message = "O tamanho deve ser entre 5 e 80 caracteres")
     private  String pontoFinal;
+    @NotNull(message = "Preenchimento do id de Horário é obrigatório!")
     private Integer horarioId;
+    @NotNull(message = "Preenchimento do id de Rota é obrigatório!")
     private Integer rotaId;
 
     public IntinerarioDTO() {

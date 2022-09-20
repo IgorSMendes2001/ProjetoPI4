@@ -2,6 +2,7 @@ package com.unibus.pi.service;
 
 import com.unibus.pi.entities.Rota;
 import com.unibus.pi.exception.DataIntegrityException;
+import com.unibus.pi.exception.ObjectNotFoundException;
 import com.unibus.pi.repository.RotaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +69,26 @@ public class RotaService {
             throw new DataIntegrityException("Não é possível excluir uma Rota que possui vínculos com produtos!");
         }
     }
+    public Rota findByNome(String nome){
+            Rota rota = repository.findByNome(nome);
+            if(rota==null){
+                throw new ObjectNotFoundException("Objeto não encontrado! Nome: "+ nome + ",Tipo: " + Rota.class.getName());
+            }
+            return rota;
+           
+    }
+    public Page<Rota> search(
+        String searchTerm,
+        int page,
+        int size) {
+    PageRequest pageRequest = PageRequest.of(
+            page,
+            size,
+            Sort.Direction.ASC,
+            "nome");
+
+    return repository.search(
+            searchTerm.toLowerCase(),
+            pageRequest);
+}
 }
