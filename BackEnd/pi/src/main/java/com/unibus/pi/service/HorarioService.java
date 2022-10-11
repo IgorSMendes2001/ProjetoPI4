@@ -21,7 +21,7 @@ public class HorarioService {
     @Autowired
     HorarioRepository repository;
     @Autowired
-    IntinerarioService intinerarioService;
+    ItinerarioService itinerarioService;
 
 
     public List<Horario> findAll() {

@@ -26,7 +26,7 @@ import java.util.List;
         private ModelMapper modelMapper;
 
         @GetMapping
-        public ResponseEntity<List<Horario>> findALl(){
+        public ResponseEntity<List<Horario>> findAll(){
             List<Horario>lista=service.findAll();
 
             return ResponseEntity.ok().body(lista);

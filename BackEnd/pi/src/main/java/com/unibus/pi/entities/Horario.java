@@ -23,8 +23,8 @@ public class Horario implements Serializable {
 
     private Integer diaSemana;
     @JsonBackReference
-    @OneToMany(mappedBy = "rota",cascade = CascadeType.ALL)
-    private List<Intinerario> intinerarios = new ArrayList<>();
+    @OneToMany(mappedBy = "horario",cascade = CascadeType.ALL)
+    private List<Itinerario> itinerarios = new ArrayList<>();
 
     public Horario(Integer id, DiaSemana diaSemana) {
         this.id = id;
@@ -59,12 +59,12 @@ public class Horario implements Serializable {
     }
     
 
-    public List<Intinerario> getIntinerarios() {
-        return intinerarios;
+    public List<Itinerario> getItinerarios() {
+        return itinerarios;
     }
 
-    public void setIntinerarios(List<Intinerario> intinerarios) {
-        this.intinerarios = intinerarios;
+    public void setItinerarios(List<Itinerario> itinerarios) {
+        this.itinerarios = itinerarios;
     }
 
     @Override

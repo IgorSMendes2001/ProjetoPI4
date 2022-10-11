@@ -18,7 +18,7 @@ public class Rota implements Serializable {
     private String nome;
     @JsonBackReference
     @OneToMany(mappedBy = "rota",cascade = CascadeType.ALL)
-    private List<Intinerario> intinerarios = new ArrayList<>();
+    private List<Itinerario> itinerarios = new ArrayList<>();
 
     public Rota(){
     }
@@ -36,12 +36,12 @@ public class Rota implements Serializable {
         this.id = id;
     }
 
-    public List<Intinerario> getIntinerarios() {
-        return intinerarios;
+    public List<Itinerario> getItinerarios() {
+        return itinerarios;
     }
 
-    public void setIntinerarios(List<Intinerario> intinerarios) {
-        this.intinerarios = intinerarios;
+    public void setItinerarios(List<Itinerario> itinerarios) {
+        this.itinerarios = itinerarios;
     }
     public String getNome() {
         return nome;
