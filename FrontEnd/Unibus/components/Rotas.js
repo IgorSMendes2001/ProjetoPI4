@@ -1,35 +1,37 @@
 import React,{useEffect, useState} from "react";
 import { View,Text, StyleSheet, Image, TouchableOpacity, TextInput, ActivityIndicator, FlatList } from 'react-native';
-import * as Animatable from 'react-native-animatable'
+import * as Animatable from 'react-native-animatable';
+import api from '../api/api';
 export default function Rotas (){
     const[rotas,setRotas]=useState([]);
     const[carregando,setCarregando]=useState(true);
     const getRotas = async () =>{
+    try{
+        return await api.get("/rotas").then((response)=>{
+            console.log("Updated rotas");
+            setRotas(response.data);
+           })
+    }catch(e){
+        console.log("Erro!");
+    }
        
-            const response = await
-            fetch('http://localhost:8080/rotas')
-            .then((resp)=>resp.json())
-            .then((json)=>setRotas(json))
-            .catch(()=>(alert('Erro ao obter Rotas! Tente novamente')))
-            .finally(()=>setCarregando(false))
         
     }
     useEffect(()=>{
         getRotas();
-            
         },[]);
     return(
         <View style={styles.container}>
         <Animatable.View animation={'fadeInLeft'}delay={500} style={styles.containerHeader} >
-            <Text style={styles.message}> Seja Bem Vindo ! </Text>
             <Text style={styles.title}> Rotas </Text>
             {
                 carregando ? <ActivityIndicator/>:(
                     <FlatList
+                        style={styles.containerForm}
                         data={rotas}
                         keyExtractor={({id},index)=>id}
                         renderItem={({item})=>(
-                            <Text>{item.nome}</Text>
+                            <Text style={styles.buttonText} >{item.nome}</Text>
                         )}
                         />
                 )

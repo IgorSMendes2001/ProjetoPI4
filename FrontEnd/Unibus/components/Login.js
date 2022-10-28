@@ -26,7 +26,7 @@ export default function Login (){
                         <Text style={styles.buttonText}>Entrar</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonRegister}>
+                    <TouchableOpacity style={styles.buttonRegister} onPress={()=>navigation.navigate('Cadastro')}>
                         <Text style={styles.registerText}>Não possui uma conta? Cadastre-se gratuitamente</Text>
                     </TouchableOpacity>
             </Animatable.View>
