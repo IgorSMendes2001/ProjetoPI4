@@ -15,7 +15,7 @@ public class IntinerarioDTO implements Serializable {
     @Length(min = 5,max = 80,message = "O tamanho deve ser entre 5 e 80 caracteres")
     private  String pontoInicial;
     @NotEmpty(message = "Preenchimento do percurso é obrigatório!")
-    @Length(min = 5,max = 80,message = "O tamanho deve ser entre 5 e 80 caracteres")
+    @Length(min = 5,max = 580,message = "O tamanho deve ser entre 5 e 580 caracteres")
     private  String percurso;
     @NotEmpty(message = "Preenchimento do ponto final é obrigatório!")
     @Length(min = 5,max = 80,message = "O tamanho deve ser entre 5 e 80 caracteres")
